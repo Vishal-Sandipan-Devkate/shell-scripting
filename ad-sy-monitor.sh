@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
 
+# Author:- Vishal Devkate
+# Description:- the script for cpu warning usage
+
+
 echo "=========SYSTEM MONITORING========"
 
 echo "CPU Load:"
-top -bn1 | grep "Cpu" | awk '{print $2 + $4 "%"}'
+cpu_usage=$(top -bn1 | grep "Cpu" | awk '{print 100 - $8}')
+echo ""
+
+cpu_int=${cpu_usage%.*}
+
+echo "$cpu_int%"
+
+if [ "$cpu_int" -gt 70 ]
+then
+	echo "High CPU Usage"
+fi
 echo ""
 
 echo "Memory Usage:"
