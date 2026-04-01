@@ -1,93 +1,59 @@
 # Shell Scripting Practice Repository
 
-This folder contains beginner-to-intermediate Bash scripts for learning shell fundamentals, argument handling, user input, simple automation, monitoring, and backup workflows.
+This repository contains Bash scripting practice files and a small DevOps-style automation project.
 
-## Folder Structure
+## Repository Layout
 
-- `first.sh` - basic variables and output
-- `taking-inputs.sh` - reads user input from terminal
-- `command-line-args.sh` - prints positional arguments
-- `special-var-cmd.sh` - demonstrates special shell variables (`$0`, `$#`, `$@`)
-- `requirement.sh` - validates required command-line input
-- `hello-fun.sh` - defines and calls a simple function
-- `first-task.sh` - combines positional args and interactive input with age check
-- `real-devops-ex.sh` - simple deployment-style argument usage
-- `sam-prod.sh` - environment-based deployment branching (`prod`, `dev`, `test`)
-- `sy-monitor.sh` - basic system monitoring output (CPU, memory, disk)
-- `ad-sy-monitor.sh` - threshold-based monitoring warnings
-- `backup.sh` - tar.gz backup creation with retention of latest 5 files
-- `profe-backup.sh` - stricter modular backup script with logging and retention
-- `con-ss-uslinux/renaming.md` - currently empty placeholder note
+- `bg-scripts-folder/`: beginner-to-intermediate shell scripting exercises
+- `devops-project/`: command-driven mini project for deploy, monitor, and backup workflows
+- `con-ss-uslinux/renaming.md`: note file (currently empty)
 
 ## Prerequisites
 
-- Linux or macOS terminal with Bash
-- Standard Unix utilities used across scripts:
-  - `tar`
-  - `top`
-  - `free`
-  - `df`
-  - `awk`
-  - `sed`
+- Linux/macOS shell with Bash
+- Common CLI tools used by scripts: `tar`, `top`, `free`, `df`, `awk`, `sed`, `uptime`
 
-Check Bash version:
+Check Bash:
 
 ```bash
 bash --version
 ```
 
-## How To Run
+## Learning Scripts (`bg-scripts-folder`)
 
-From this folder:
+### Script List
+
+- `first.sh`: basic variables and output
+- `taking-inputs.sh`: interactive input (`read`)
+- `command-line-args.sh`: prints first two positional arguments
+- `special-var-cmd.sh`: demonstrates `$0`, `$#`, `$@`
+- `requirement.sh`: validates argument presence
+- `hello-fun.sh`: simple function example
+- `first-task.sh`: combines argument + interactive age check
+- `real-devops-ex.sh`: simple required-argument deployment message
+- `sam-prod.sh`: environment-based deployment branching (`prod`, `dev`, `test`)
+- `sy-monitor.sh`: basic system monitoring output
+- `ad-sy-monitor.sh`: threshold-based system usage warnings
+- `backup.sh`: tar backup with retention of latest 5 files
+- `profe-backup.sh`: modular backup with logging and retention
+
+### Run Examples
 
 ```bash
 cd /home/vishaldevkate/Desktop/learnigs
+
+bash bg-scripts-folder/first.sh
+bash bg-scripts-folder/taking-inputs.sh
+bash bg-scripts-folder/command-line-args.sh one two
+bash bg-scripts-folder/special-var-cmd.sh alpha beta gamma
+bash bg-scripts-folder/requirement.sh Vishal
+bash bg-scripts-folder/sam-prod.sh payment-service prod
+bash bg-scripts-folder/ad-sy-monitor.sh
 ```
 
-Run any script with Bash:
+### Backup Script Notes
 
-```bash
-bash first.sh
-bash taking-inputs.sh
-bash command-line-args.sh Vishal DevOps
-```
-
-Optional: make scripts executable once, then run directly.
-
-```bash
-chmod +x *.sh
-./sam-prod.sh my-app prod
-```
-
-## Script Examples
-
-### Input and Arguments
-
-```bash
-bash taking-inputs.sh
-bash command-line-args.sh one two
-bash special-var-cmd.sh alpha beta gamma
-bash requirement.sh Vishal
-```
-
-### Deployment-style Scripts
-
-```bash
-bash real-devops-ex.sh vishal
-bash sam-prod.sh payment-service prod
-bash sam-prod.sh payment-service dev
-```
-
-### Monitoring Scripts
-
-```bash
-bash sy-monitor.sh
-bash ad-sy-monitor.sh
-```
-
-### Backup Scripts
-
-Both backup scripts currently use hardcoded paths:
+Both backup scripts use hardcoded paths:
 
 - `SOURCE="/home/vishaldevkate/Documents"`
 - `DEST="/home/vishaldevkate/backup"`
@@ -95,21 +61,41 @@ Both backup scripts currently use hardcoded paths:
 Run:
 
 ```bash
-bash backup.sh
-bash profe-backup.sh
+bash bg-scripts-folder/backup.sh
+bash bg-scripts-folder/profe-backup.sh
 ```
 
-## Notes and Safety
+## DevOps Mini Project (`devops-project`)
 
-- Some scripts are learning exercises and intentionally simple.
-- Backup scripts remove older backup files to keep only the latest 5 archives.
-- Review hardcoded paths before running backup scripts on another system.
-- For production usage, prefer parameterized paths and dry-run support.
+### Files
 
-## Suggested Improvements
+- `config.env`: shared config (app name, backup/data/log paths, environment)
+- `devops.sh`: command router entrypoint
+- `scripts/deploy.sh`: environment-based deployment handler
+- `scripts/monitor.sh`: CPU/memory/disk status
+- `scripts/backup.sh`: archive backup from configured source dir
+- `scripts/utils.sh`: shared `log` and `error_exit` helpers
 
-- Accept `SOURCE` and `DEST` as command-line parameters.
-- Add `--help` and usage output to all scripts.
-- Add consistent error handling (`set -euo pipefail`) where appropriate.
-- Add shell linting with `shellcheck`.
-- Add simple automated tests (for argument-validation scripts) using `bats`.
+### Run Project Commands
+
+```bash
+cd /home/vishaldevkate/Desktop/learnigs/devops-project
+
+bash devops.sh deploy dev
+bash devops.sh deploy prod
+bash devops.sh monitor
+bash devops.sh backup
+```
+
+## Current Caveats
+
+- Some scripts are intentionally simple and designed for learning.
+- In `bg-scripts-folder`, backups keep only the latest 5 files.
+- In `devops-project`, paths in `config.env` are relative to `devops-project`.
+
+## Improvement Ideas
+
+- Parameterize source and destination in backup scripts.
+- Add `--help` usage messages to every script.
+- Standardize strict mode (`set -euo pipefail`) where appropriate.
+- Add `shellcheck` and simple automated checks (for example, using `bats`).

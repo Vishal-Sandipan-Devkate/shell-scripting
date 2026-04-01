@@ -1,10 +1,13 @@
-#!/usr/bin/env` bash
+#!/usr/bin/env bash
 
 # Author: Vishal Devkate
 # Dis: Utiliteis of applicaton
 
 log() {
-	echo "$date '+%Y-%m-%d %H:%M:%S') : $1" >> $LOG_FILE
+	local timestamp
+	timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+	mkdir -p "$(dirname "$LOG_FILE")"
+	echo "$timestamp : $1" >> "$LOG_FILE"
 }
 
 error_exit() {
